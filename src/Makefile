@@ -1,6 +1,6 @@
 .PHONY: default clean check-inject tests
 
-CFLAGS+=-std=gnu99 -pedantic -Wall -Wextra -Werror -Wno-unused-result -pipe
+CFLAGS+=-std=gnu99 -Wall -Wextra -Werror -Wno-unused-result -pipe
 CFLAGS+=-D_POSIX_SOURCE -D_GNU_SOURCE
 CFLAGS+=-pthread -fPIC
 
@@ -131,7 +131,7 @@ tests/faketime.o: $(TRACY_HS)
 tests/llseek.o: $(TRACY_HS)
 
 def_syscalls.h:
-	echo "#include <sys/syscall.h>" | $(CC) $(CFLAGS) - -E -P -dM \
+	echo "#include <unistd.h>\n#include <sys/syscall.h>" | $(CC) $(CFLAGS) - -E -P -dM \
 		| grep "define SYS" | cut -f2 -d" " | \
 		sed 's/SYS_//;s/\(.*\)/DEF_SYSCALL(&)/' > def_syscalls.h
 
