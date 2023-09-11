@@ -51,7 +51,7 @@ static const char *g_syscall_allowed[] = {
     "exit_group", "fchmod", "utime", "getdents", "chmod", "munmap", "time",
     "rt_sigaction", "brk", "fcntl", "access", "getcwd", "chdir", "select",
     "newfstatat", "fstat64", "_llseek", "gettimeofday", "stat64",
-    "getdents64", "getpid", "fchown", "rt_sigprocmask", NULL,
+    "getdents64", "getpid", "fchown", "rt_sigprocmask", "pselect6", NULL,
 };
 
 static const char *g_openat_allowed[] = {
