@@ -429,6 +429,16 @@ static int _sandbox_clone(struct tracy_event *e)
     return TRACY_HOOK_CONTINUE;
 }
 
+static int _sandbox_clone3(struct tracy_event *e)
+{
+    static int clone_count = 0;
+    dprintf("clone3(...)\n");
+    if(e->child->pre_syscall == 1 && clone_count++ == g_max_clones) {
+        return TRACY_HOOK_ABORT;
+    }
+    return TRACY_HOOK_CONTINUE;
+}
+
 static int _sandbox_write(struct tracy_event *e)
 {
     static uint64_t written = 0;
@@ -536,7 +546,7 @@ static int _zipjail_enter_sandbox(struct tracy_event *e)
 
     H(open); H(openat); H(unlink); H(mkdir); H(readlink); H(mmap);
     H(mprotect); H(ioctl); H(futex); H(clone); H(write); H(socket);
-    H(connect); H(close); H(mkdirat); H(unlinkat);
+    H(connect); H(close); H(mkdirat); H(unlinkat); H(clone3);
 
     for (const char **sc = g_syscall_allowed; *sc != NULL; sc++) {
         if(tracy_set_hook(e->child->tracy, *sc, e->abi,
