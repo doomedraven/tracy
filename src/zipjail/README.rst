@@ -10,6 +10,7 @@ archive tools.
 **Motivation behind this small wrapper utility** may be found in the
 `Security`_ chapter, below in this document.
 
+
 Usage
 =====
 
@@ -160,3 +161,22 @@ such papers (feel free to reach out to add your research):
   <http://blog.talosintel.com/2016/06/the-poisoned-archives.html>`_.
 
 .. _`Cuckoo Sandbox`: https://github.com/cuckoosandbox/cuckoo
+
+Compilation
+===========
+To compile zipjail:
+* Compile parent project with ``cd .. && make``
+* Compile zipjail with ``cd zipjail && make``
+
+
+How to investigate Killing child X
+==================================
+
+Run zipjail as standalone executable:
+
+```bash
+zipjail <target_file> <extraction_foldr> -c=30 -v -- <path_to_extractor> <extractor args>
+
+Example:
+    zipjail sample.zip /tmp -c30 -v -- /usr/bin/7z x -o/tmp -infected
+```

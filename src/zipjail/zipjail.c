@@ -52,6 +52,7 @@ static const char *g_syscall_allowed[] = {
     "rt_sigaction", "brk", "fcntl", "access", "getcwd", "chdir", "select",
     "newfstatat", "fstat64", "_llseek", "gettimeofday", "stat64",
     "getdents64", "getpid", "fchown", "rt_sigprocmask", "pselect6", "sysinfo",
+    "madvise",
     NULL,
 };
 
